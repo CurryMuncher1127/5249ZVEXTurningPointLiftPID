@@ -18,17 +18,18 @@ void PIDLift(double dist)
     double iGain = 0.0;
     double dGain = 0.0;
     
-    double error = RightLift;
-    double oldError = RightLift.rotation(vex::rotationUnits::deg) = 0.0;
+    double error = goal - RightLift.rotation(vex::rotationUnits::deg);
+    double errorSum = 0.0;
+    double oldError = RightLift.rotation(vex::rotationUnits::deg);
     
     bool isFirst = true;
     int counter = 0;
     
     int i = 0;
-    Timer.clear();
+    Brain.resetTimer();
     double oldSpeed = 0.0;
     
-    while(error > 20.0){
+    while(true){
         error = goal - RightLift.rotation(vex::rotationUnits::deg);
         errorSum += (error);
         if(error == 0.0){
